@@ -25,7 +25,7 @@ export default {
       var params = {
         title: "example title 1",
         chef: "example chef",
-        // prep_time: 10,
+        prep_time: 10,
         ingredients: "example ingredients",
         directions: "example directions",
         image_url: "example url",
@@ -56,4 +56,8 @@ export default {
   </div>
 </template>
 
-<style></style>
+<style>
+img {
+  max-width: 500px;
+}
+</style>
