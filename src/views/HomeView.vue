@@ -5,8 +5,9 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      message: "All Recipes",
       recipes: [],
+      errors: [],
+      message: "All Recipes",
       newRecipeTitle: "",
       newRecipeChef: "",
       newRecipePrepTime: 0,
@@ -49,7 +50,10 @@ export default {
           this.newRecipeDirections = "";
           this.newRecipeImageUrl = "";
         })
-        .catch((error) => console.log(error.response));
+        .catch((error) => {
+          console.log(error.response.data.errors);
+          this.errors = error.response.data.errors;
+        });
     },
   },
 };
@@ -71,6 +75,9 @@ export default {
     ImageUrl:
     <input type="text" v-model="newRecipeImageUrl" />
     <button v-on:click="createRecipe()">Create Recipe</button>
+    <div class="errors" v-for="error in errors" v-bind:key="error">
+      {{ error }}
+    </div>
     <h1>{{ message }}</h1>
     <div v-for="recipe in recipes" v-bind:key="recipe.id">
       <h2>Title: {{ recipe.title }}</h2>
@@ -82,6 +89,9 @@ export default {
 
 <style>
 img {
-  max-width: 500px;
+  max-width: 250px;
+}
+.errors {
+  color: red;
 }
 </style>
