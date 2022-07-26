@@ -1,17 +1,25 @@
 <script>
+// var axios = require("axios");
+import axios from "axios";
+
 export default {
   data: function () {
     return {
       message: "All Recipes",
-      recipes: [
-        { id: 1, title: "Raw Eggs", chef: "Jay Wengrow" },
-        { id: 1, title: "Empty Sandwich", chef: "Jay Wengrow" },
-        { id: 1, title: "Ice", chef: "Peter Jang" },
-      ],
+      recipes: [],
     };
   },
-  created: function () {},
-  methods: {},
+  created: function () {
+    this.indexRecipes();
+  },
+  methods: {
+    indexRecipes: function () {
+      axios.get("http://localhost:3000/recipes.json").then((response) => {
+        this.recipes = response.data;
+        console.log("All recipes: ", response.data);
+      });
+    },
+  },
 };
 </script>
 
