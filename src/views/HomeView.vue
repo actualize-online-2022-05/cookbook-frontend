@@ -19,12 +19,34 @@ export default {
         console.log("All recipes: ", response.data);
       });
     },
+    createRecipe: function () {
+      console.log("new recipe created!");
+
+      var params = {
+        title: "example title 1",
+        chef: "example chef",
+        // prep_time: 10,
+        ingredients: "example ingredients",
+        directions: "example directions",
+        image_url: "example url",
+      };
+
+      axios
+        .post("http://localhost:3000/recipes.json", params)
+        .then((response) => {
+          console.log("Success!", response.data);
+          this.recipes.push(response.data);
+        })
+        .catch((error) => console.log(error.response));
+    },
   },
 };
 </script>
 
 <template>
   <div class="home">
+    <h1>New Recipe</h1>
+    <button v-on:click="createRecipe()">Create Recipe</button>
     <h1>{{ message }}</h1>
     <div v-for="recipe in recipes" v-bind:key="recipe.id">
       <h2>Title: {{ recipe.title }}</h2>
