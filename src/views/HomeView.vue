@@ -7,6 +7,12 @@ export default {
     return {
       message: "All Recipes",
       recipes: [],
+      newRecipeTitle: "",
+      newRecipeChef: "",
+      newRecipePrepTime: 0,
+      newRecipeIngredients: "",
+      newRecipeDirections: "",
+      newRecipeImageUrl: "",
     };
   },
   created: function () {
@@ -23,19 +29,25 @@ export default {
       console.log("new recipe created!");
 
       var params = {
-        title: "example title 1",
-        chef: "example chef",
-        prep_time: 10,
-        ingredients: "example ingredients",
-        directions: "example directions",
-        image_url: "example url",
+        title: this.newRecipeTitle,
+        chef: this.newRecipeChef,
+        prep_time: this.newRecipePrepTime,
+        ingredients: this.newRecipeIngredients,
+        directions: this.newRecipeDirections,
+        image_url: this.newRecipeImageUrl,
       };
-
+      // console.log(params);
       axios
         .post("http://localhost:3000/recipes.json", params)
         .then((response) => {
           console.log("Success!", response.data);
           this.recipes.push(response.data);
+          this.newRecipeTitle = "";
+          this.newRecipeChef = "";
+          this.newRecipePrepTime = "";
+          this.newRecipeIngredients = "";
+          this.newRecipeDirections = "";
+          this.newRecipeImageUrl = "";
         })
         .catch((error) => console.log(error.response));
     },
@@ -46,6 +58,18 @@ export default {
 <template>
   <div class="home">
     <h1>New Recipe</h1>
+    Title:
+    <input type="text" v-model="newRecipeTitle" />
+    Chef:
+    <input type="text" v-model="newRecipeChef" />
+    PrepTime:
+    <input type="number" v-model="newRecipePrepTime" />
+    Ingredients:
+    <input type="text" v-model="newRecipeIngredients" />
+    Directions:
+    <input type="text" v-model="newRecipeDirections" />
+    ImageUrl:
+    <input type="text" v-model="newRecipeImageUrl" />
     <button v-on:click="createRecipe()">Create Recipe</button>
     <h1>{{ message }}</h1>
     <div v-for="recipe in recipes" v-bind:key="recipe.id">
