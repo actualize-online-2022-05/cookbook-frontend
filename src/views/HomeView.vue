@@ -28,6 +28,7 @@ export default {
     <h1>{{ message }}</h1>
     <div v-for="recipe in recipes" v-bind:key="recipe.id">
       <h2>Title: {{ recipe.title }}</h2>
+      <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
       <p>Chef: {{ recipe.chef }}</p>
     </div>
   </div>
