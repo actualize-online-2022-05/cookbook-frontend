@@ -64,9 +64,15 @@ export default {
       document.querySelector("#recipe-info").showModal();
     },
     updateRecipe: function (recipeToEdit) {
-      // console.log(recipeToEdit);
       axios.patch("http://localhost:3000/recipes/" + recipeToEdit.id + ".json", recipeToEdit).then((response) => {
         console.log(response.data);
+      });
+    },
+    destroyRecipe: function (recipe) {
+      axios.delete(`http://localhost:3000/recipes/${recipe.id}`).then((response) => {
+        console.log(response.data);
+        var index = this.recipes.indexOf(recipe);
+        this.recipes.splice(index, 1);
       });
     },
   },
@@ -121,6 +127,7 @@ export default {
           <input type="text" v-model="editRecipe.prep_time" />
         </p>
         <button v-on:click="updateRecipe(editRecipe)">Update</button>
+        <button v-on:click="destroyRecipe(currentRecipe)">Delete</button>
         <button>Close</button>
       </form>
     </dialog>
