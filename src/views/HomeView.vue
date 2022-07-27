@@ -9,6 +9,7 @@ export default {
       errors: [],
       message: "All Recipes",
       currentRecipe: {},
+      editRecipe: {},
       newRecipeTitle: "",
       newRecipeChef: "",
       newRecipePrepTime: 0,
@@ -57,10 +58,15 @@ export default {
         });
     },
     showRecipe: function (recipe) {
-      axios.get(`http://localhost:3000/recipes/${recipe.id}.json`).then((response) => {
+      console.log(recipe);
+      this.currentRecipe = recipe;
+      this.editRecipe = recipe;
+      document.querySelector("#recipe-info").showModal();
+    },
+    updateRecipe: function (recipeToEdit) {
+      // console.log(recipeToEdit);
+      axios.patch("http://localhost:3000/recipes/" + recipeToEdit.id + ".json", recipeToEdit).then((response) => {
         console.log(response.data);
-        this.currentRecipe = response.data;
-        document.querySelector("#recipe-info").showModal();
       });
     },
   },
@@ -101,6 +107,20 @@ export default {
         <p>Ingredients: {{ currentRecipe.ingredients_list }}</p>
         <p>Directions: {{ currentRecipe.directions_list }}</p>
         <p>Prep Time: {{ currentRecipe.friendly_prep_time }}</p>
+        <h1>Edit Recipe</h1>
+        <p>
+          Title:
+          <input type="text" v-model="editRecipe.title" />
+        </p>
+        <p>
+          Chef:
+          <input type="text" v-model="editRecipe.chef" />
+        </p>
+        <p>
+          Prep Time:
+          <input type="text" v-model="editRecipe.prep_time" />
+        </p>
+        <button v-on:click="updateRecipe(editRecipe)">Update</button>
         <button>Close</button>
       </form>
     </dialog>
