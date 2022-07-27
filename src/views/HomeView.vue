@@ -55,6 +55,10 @@ export default {
           this.errors = error.response.data.errors;
         });
     },
+    showRecipe: function (recipe) {
+      console.log(recipe);
+      document.querySelector("#recipe-info").showModal();
+    },
   },
 };
 </script>
@@ -83,7 +87,19 @@ export default {
       <h2>Title: {{ recipe.title }}</h2>
       <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
       <p>Chef: {{ recipe.chef }}</p>
+      <button v-on:click="showRecipe(recipe)">More info</button>
     </div>
+    <dialog id="recipe-info">
+      <form method="dialog">
+        <h1>Recipe Info:</h1>
+        <p>Title: ...</p>
+        <p>Chef: ...</p>
+        <p>Ingredients: ...</p>
+        <p>Directions: ...</p>
+        <p>Prep Time:</p>
+        <button>Close</button>
+      </form>
+    </dialog>
   </div>
 </template>
 
