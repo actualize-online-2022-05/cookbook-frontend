@@ -57,9 +57,11 @@ export default {
         });
     },
     showRecipe: function (recipe) {
-      console.log(recipe);
-      this.currentRecipe = recipe;
-      document.querySelector("#recipe-info").showModal();
+      axios.get(`http://localhost:3000/recipes/${recipe.id}.json`).then((response) => {
+        console.log(response.data);
+        this.currentRecipe = response.data;
+        document.querySelector("#recipe-info").showModal();
+      });
     },
   },
 };
