@@ -8,6 +8,7 @@ export default {
       recipes: [],
       errors: [],
       message: "All Recipes",
+      currentRecipe: {},
       newRecipeTitle: "",
       newRecipeChef: "",
       newRecipePrepTime: 0,
@@ -57,6 +58,7 @@ export default {
     },
     showRecipe: function (recipe) {
       console.log(recipe);
+      this.currentRecipe = recipe;
       document.querySelector("#recipe-info").showModal();
     },
   },
@@ -92,11 +94,11 @@ export default {
     <dialog id="recipe-info">
       <form method="dialog">
         <h1>Recipe Info:</h1>
-        <p>Title: ...</p>
-        <p>Chef: ...</p>
-        <p>Ingredients: ...</p>
-        <p>Directions: ...</p>
-        <p>Prep Time:</p>
+        <p>Title: {{ currentRecipe.title }}</p>
+        <p>Chef: {{ currentRecipe.chef }}</p>
+        <p>Ingredients: {{ currentRecipe.ingredients_list }}</p>
+        <p>Directions: {{ currentRecipe.directions_list }}</p>
+        <p>Prep Time: {{ currentRecipe.friendly_prep_time }}</p>
         <button>Close</button>
       </form>
     </dialog>
