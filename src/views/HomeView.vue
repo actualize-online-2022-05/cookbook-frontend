@@ -9,13 +9,7 @@ export default {
       errors: [],
       message: "All Recipes",
       currentRecipe: {},
-      editRecipe: {},
-      newRecipeTitle: "",
-      newRecipeChef: "",
-      newRecipePrepTime: 0,
-      newRecipeIngredients: "",
-      newRecipeDirections: "",
-      newRecipeImageUrl: "",
+      newRecipe: {},
     };
   },
   created: function () {
@@ -29,28 +23,12 @@ export default {
       });
     },
     createRecipe: function () {
-      console.log("new recipe created!");
-
-      var params = {
-        title: this.newRecipeTitle,
-        chef: this.newRecipeChef,
-        prep_time: this.newRecipePrepTime,
-        ingredients: this.newRecipeIngredients,
-        directions: this.newRecipeDirections,
-        image_url: this.newRecipeImageUrl,
-      };
-      // console.log(params);
       axios
-        .post("http://localhost:3000/recipes.json", params)
+        .post("http://localhost:3000/recipes.json", this.newRecipe)
         .then((response) => {
           console.log("Success!", response.data);
           this.recipes.push(response.data);
-          this.newRecipeTitle = "";
-          this.newRecipeChef = "";
-          this.newRecipePrepTime = "";
-          this.newRecipeIngredients = "";
-          this.newRecipeDirections = "";
-          this.newRecipeImageUrl = "";
+          this.newRecipe = {};
         })
         .catch((error) => {
           console.log(error.response.data.errors);
@@ -58,9 +36,7 @@ export default {
         });
     },
     showRecipe: function (recipe) {
-      console.log(recipe);
       this.currentRecipe = recipe;
-      this.editRecipe = recipe;
       document.querySelector("#recipe-info").showModal();
     },
     updateRecipe: function (recipeToEdit) {
@@ -83,17 +59,17 @@ export default {
   <div class="home">
     <h1>New Recipe</h1>
     Title:
-    <input type="text" v-model="newRecipeTitle" />
+    <input type="text" v-model="newRecipe.title" />
     Chef:
-    <input type="text" v-model="newRecipeChef" />
+    <input type="text" v-model="newRecipe.chef" />
     PrepTime:
-    <input type="number" v-model="newRecipePrepTime" />
+    <input type="number" v-model="newRecipe.prep_time" />
     Ingredients:
-    <input type="text" v-model="newRecipeIngredients" />
+    <input type="text" v-model="newRecipe.ingredients" />
     Directions:
-    <input type="text" v-model="newRecipeDirections" />
+    <input type="text" v-model="newRecipe.directions" />
     ImageUrl:
-    <input type="text" v-model="newRecipeImageUrl" />
+    <input type="text" v-model="newRecipe.image_url" />
     <button v-on:click="createRecipe()">Create Recipe</button>
     <div class="errors" v-for="error in errors" v-bind:key="error">
       {{ error }}
@@ -108,25 +84,27 @@ export default {
     <dialog id="recipe-info">
       <form method="dialog">
         <h1>Recipe Info:</h1>
-        <p>Title: {{ currentRecipe.title }}</p>
-        <p>Chef: {{ currentRecipe.chef }}</p>
-        <p>Ingredients: {{ currentRecipe.ingredients_list }}</p>
-        <p>Directions: {{ currentRecipe.directions_list }}</p>
-        <p>Prep Time: {{ currentRecipe.friendly_prep_time }}</p>
-        <h1>Edit Recipe</h1>
         <p>
           Title:
-          <input type="text" v-model="editRecipe.title" />
+          <input type="text" v-model="currentRecipe.title" />
         </p>
         <p>
           Chef:
-          <input type="text" v-model="editRecipe.chef" />
+          <input type="text" v-model="currentRecipe.chef" />
+        </p>
+        <p>
+          Ingredients:
+          <input type="text" v-model="currentRecipe.ingredients" />
+        </p>
+        <p>
+          Directions:
+          <input type="text" v-model="currentRecipe.directions" />
         </p>
         <p>
           Prep Time:
-          <input type="text" v-model="editRecipe.prep_time" />
+          <input type="text" v-model="currentRecipe.prep_time" />
         </p>
-        <button v-on:click="updateRecipe(editRecipe)">Update</button>
+        <button v-on:click="updateRecipe(currentRecipe)">Update</button>
         <button v-on:click="destroyRecipe(currentRecipe)">Delete</button>
         <button>Close</button>
       </form>
