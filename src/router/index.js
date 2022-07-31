@@ -5,6 +5,7 @@ import TestView from "../views/TestView.vue";
 import SignupView from "../views/SignupView.vue";
 import LoginView from "../views/LoginView.vue";
 import LogoutView from "../views/LogoutView.vue";
+import RecipesIndex from "../views/RecipesIndex.vue";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: "/logout",
     name: "logout",
     component: LogoutView,
+  },
+  {
+    path: "/recipes",
+    name: "recipes-index",
+    component: RecipesIndex,
   },
 ];
 
