@@ -6,6 +6,8 @@
     |
     <router-link to="/recipes">All Recipes</router-link>
     |
+    <router-link to="/recipe/new">New Recipe</router-link>
+    |
     <router-link to="/signup">Signup</router-link>
     |
     <router-link to="/login">Login</router-link>
