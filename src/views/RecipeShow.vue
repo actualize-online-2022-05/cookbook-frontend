@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     showRecipe: function () {
-      axios.get("/recipes/1.json").then((response) => {
+      axios.get("/recipes/" + this.$route.params.id + ".json").then((response) => {
         this.recipe = response.data;
         console.log("One recipe: ", response.data);
       });
@@ -26,6 +26,15 @@ export default {
     <h1>{{ recipe.title }}</h1>
     <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
     <p>Chef: {{ recipe.chef }}</p>
+    Ingredients:
+    <div v-for="ingredient in recipe.ingredients_list" v-bind:key="ingredient">
+      {{ ingredient }}
+    </div>
+    Directions:
+    <div v-for="direction in recipe.directions_list" v-bind:key="direction">
+      {{ direction }}
+    </div>
+    <p>Prep Time: {{ recipe.friendly_prep_time }}</p>
     <a href="/recipes">Back to all Recipes</a>
   </div>
 </template>

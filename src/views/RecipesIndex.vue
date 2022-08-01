@@ -27,7 +27,7 @@ export default {
       <h2>Title: {{ recipe.title }}</h2>
       <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
       <p>Chef: {{ recipe.chef }}</p>
-      <a href="/recipes/1">More info</a>
+      <a v-bind:href="`/recipes/${recipe.id}`">More info</a>
     </div>
   </div>
 </template>
