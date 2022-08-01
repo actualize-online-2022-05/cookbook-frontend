@@ -7,6 +7,7 @@ import LoginView from "../views/LoginView.vue";
 import LogoutView from "../views/LogoutView.vue";
 import RecipesIndex from "../views/RecipesIndex.vue";
 import RecipeNew from "../views/RecipeNew.vue";
+import RecipeShow from "../views/RecipeShow.vue";
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: "/recipe/new",
     name: "recipe-new",
     component: RecipeNew,
+  },
+  {
+    path: "/recipes/1",
+    name: "recipe-show",
+    component: RecipeShow,
   },
 ];
 
