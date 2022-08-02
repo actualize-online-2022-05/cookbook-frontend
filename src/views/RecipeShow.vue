@@ -17,6 +17,12 @@ export default {
         console.log("One recipe: ", response.data);
       });
     },
+    destroyRecipe: function () {
+      axios.delete("/recipes/" + this.$route.params.id + ".json").then((response) => {
+        console.log(response.data);
+        this.$router.push("/recipes");
+      });
+    },
   },
 };
 </script>
@@ -36,6 +42,7 @@ export default {
     </div>
     <p>Prep Time: {{ recipe.friendly_prep_time }}</p>
     <a v-bind:href="`/recipes/${recipe.id}/edit`">Edit Recipe</a>
+    <button v-on:click="destroyRecipe()">Delete Recipe</button>
     <a href="/recipes">Back to all Recipes</a>
   </div>
 </template>
