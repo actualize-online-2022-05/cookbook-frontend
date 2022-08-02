@@ -35,6 +35,7 @@ export default {
       {{ direction }}
     </div>
     <p>Prep Time: {{ recipe.friendly_prep_time }}</p>
+    <a v-bind:href="`/recipes/${recipe.id}/edit`">Edit Recipe</a>
     <a href="/recipes">Back to all Recipes</a>
   </div>
 </template>

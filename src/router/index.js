@@ -8,6 +8,7 @@ import LogoutView from "../views/LogoutView.vue";
 import RecipesIndex from "../views/RecipesIndex.vue";
 import RecipeNew from "../views/RecipeNew.vue";
 import RecipeShow from "../views/RecipeShow.vue";
+import RecipeEdit from "../views/RecipeEdit.vue";
 
 const routes = [
   {
@@ -54,6 +55,11 @@ const routes = [
     path: "/recipes/:id",
     name: "recipe-show",
     component: RecipeShow,
+  },
+  {
+    path: "/recipes/:id/edit",
+    name: "recipe-edit",
+    component: RecipeEdit,
   },
 ];
 
