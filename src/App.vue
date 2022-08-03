@@ -22,13 +22,13 @@
             <router-link class="nav-link" aria-current="page" to="/recipe/new">New Recipe</router-link>
           </li>
           <li>
-            <router-link class="nav-link" aria-current="page" to="/signup">Signup</router-link>
+            <router-link v-if="!isLoggedIn" class="nav-link" aria-current="page" to="/signup">Signup</router-link>
           </li>
           <li>
-            <router-link class="nav-link" aria-current="page" to="/login">Login</router-link>
+            <router-link v-if="!isLoggedIn" class="nav-link" aria-current="page" to="/login">Login</router-link>
           </li>
           <li>
-            <router-link class="nav-link" aria-current="page" to="/logout">Logout</router-link>
+            <router-link v-if="isLoggedIn" class="nav-link" aria-current="page" to="/logout">Logout</router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -45,6 +45,21 @@
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  data: function () {
+    return {
+      isLoggedIn: false,
+    };
+  },
+  watch: {
+    $route: function () {
+      this.isLoggedIn = !!localStorage.jwt;
+    },
+  },
+};
+</script>
 
 <style>
 body {
