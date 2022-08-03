@@ -5,6 +5,7 @@ export default {
   data: function () {
     return {
       newUserParams: {},
+      name: "",
       errors: [],
     };
   },
@@ -34,6 +35,8 @@ export default {
       <div>
         <label>Name:</label>
         <input type="text" v-model="newUserParams.name" />
+        <br />
+        <small v-if="newUserParams.name">{{ 20 - newUserParams.name.length }} characters remaining</small>
       </div>
       <div>
         <label>Email:</label>
@@ -42,10 +45,22 @@ export default {
       <div>
         <label>Password:</label>
         <input type="password" v-model="newUserParams.password" />
+        <br />
+        <small class="text-danger" v-if="newUserParams.password && newUserParams.password.length < 6">
+          Must be at least 6 characters
+        </small>
+        <br />
+        <small class="text-danger" v-if="newUserParams.password && newUserParams.password.length > 20">
+          Must not be over 20 characters
+        </small>
       </div>
       <div>
         <label>Password confirmation:</label>
         <input type="password" v-model="newUserParams.password_confirmation" />
+        <br />
+        <small class="text-danger" v-if="newUserParams.password !== newUserParams.password_confirmation">
+          Must match password
+        </small>
       </div>
       <input type="submit" value="Submit" />
     </form>
