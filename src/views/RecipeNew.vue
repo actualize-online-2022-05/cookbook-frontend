@@ -35,29 +35,29 @@ export default {
       </ul>
       <div>
         Title:
-        <input type="text" v-model="newRecipeParams.title" />
+        <input class="form-control" type="text" v-model="newRecipeParams.title" />
       </div>
       <div>
         Chef:
-        <input type="text" v-model="newRecipeParams.chef" />
+        <input class="form-control" type="text" v-model="newRecipeParams.chef" />
       </div>
       <div>
         PrepTime:
-        <input type="number" v-model="newRecipeParams.prep_time" />
+        <input class="form-control" type="number" v-model="newRecipeParams.prep_time" />
       </div>
       <div>
         Ingredients:
-        <input type="text" v-model="newRecipeParams.ingredients" />
+        <input class="form-control" type="text" v-model="newRecipeParams.ingredients" />
       </div>
       <div>
         Directions:
-        <input type="text" v-model="newRecipeParams.directions" />
+        <input class="form-control" type="text" v-model="newRecipeParams.directions" />
       </div>
       <div>
         ImageUrl:
-        <input type="text" v-model="newRecipeParams.image_url" />
+        <input class="form-control" type="text" v-model="newRecipeParams.image_url" />
       </div>
-      <input type="submit" value="Submit Recipe" />
+      <input class="btn btn-success mt-4" type="submit" value="Submit Recipe" />
     </form>
   </div>
 </template>

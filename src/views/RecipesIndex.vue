@@ -26,7 +26,7 @@ export default {
     <div class="row">
       <div class="col-sm-4" v-for="recipe in recipes" v-bind:key="recipe.id">
         <div class="card mb-4">
-          <img class="card-img-top" v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
+          <img class="m-auto card-img-top" v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
           <div class="card-body">
             <h5 class="card-title">{{ recipe.title }}</h5>
             <p class="card-text">Chef: {{ recipe.chef }}</p>
