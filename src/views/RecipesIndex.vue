@@ -4,6 +4,7 @@ export default {
   data: function () {
     return {
       recipes: [],
+      currentRecipe: {},
     };
   },
   created: function () {
@@ -24,8 +25,8 @@ export default {
   <div>
     <h1>All Recipes</h1>
     <div class="row">
-      <div class="col-sm-4" v-for="recipe in recipes" v-bind:key="recipe.id">
-        <div class="card mb-4">
+      <div class="col-sm-4" v-for="recipe in recipes" v-bind:key="recipe.id" v-on:mouseover="currentRecipe = recipe">
+        <div class="card mb-4" v-bind:class="{ selected: recipe == currentRecipe }">
           <img class="m-auto card-img-top" v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
           <div class="card-body">
             <h5 class="card-title">{{ recipe.title }}</h5>
@@ -48,5 +49,10 @@ export default {
 .card img {
   object-fit: cover;
   height: 250px;
+}
+.selected {
+  /* color: white; */
+  background-color: #e6e6e6;
+  transition: background-color 1s ease;
 }
 </style>
