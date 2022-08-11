@@ -10,6 +10,11 @@ export default {
   created: function () {
     this.indexRecipes();
   },
+  watch: {
+    currentRecipe: function () {
+      console.log(this.currentRecipe);
+    },
+  },
   methods: {
     indexRecipes: function () {
       axios.get("/recipes.json").then((response) => {
@@ -26,7 +31,7 @@ export default {
     <h1>All Recipes</h1>
     <div class="row">
       <div class="col-sm-4" v-for="recipe in recipes" v-bind:key="recipe.id" v-on:mouseover="currentRecipe = recipe">
-        <div class="card mb-4" v-bind:class="{ selected: recipe == currentRecipe }">
+        <div class="card mb-4" v-bind:class="{ selected: recipe === currentRecipe }">
           <img class="m-auto card-img-top" v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
           <div class="card-body">
             <h5 class="card-title">{{ recipe.title }}</h5>

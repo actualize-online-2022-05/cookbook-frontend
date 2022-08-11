@@ -50,7 +50,7 @@
 export default {
   data: function () {
     return {
-      isLoggedIn: false,
+      isLoggedIn: !!localStorage.jwt,
     };
   },
   watch: {
