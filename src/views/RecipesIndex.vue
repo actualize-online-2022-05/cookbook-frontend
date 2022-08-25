@@ -5,6 +5,7 @@ export default {
     return {
       recipes: [],
       currentRecipe: {},
+      titleSearch: "eggs",
     };
   },
   created: function () {
@@ -22,6 +23,13 @@ export default {
         console.log("All recipes: ", response.data);
       });
     },
+    filterRecipes: function () {
+      return this.recipes.filter((recipe) => {
+        var lowerTitle = recipe.title.toLowerCase();
+        var lowerTitleSearch = this.titleSearch.toLowerCase();
+        return lowerTitle.includes(lowerTitleSearch);
+      });
+    },
   },
 };
 </script>
@@ -30,7 +38,16 @@ export default {
   <div>
     <h1>All Recipes</h1>
     <div class="row">
-      <div class="col-sm-4" v-for="recipe in recipes" v-bind:key="recipe.id" v-on:mouseover="currentRecipe = recipe">
+      <div class="row p-3">
+        Search:
+        <input type="text" v-model="titleSearch" />
+      </div>
+      <div
+        class="col-sm-4"
+        v-for="recipe in filterRecipes()"
+        v-bind:key="recipe.id"
+        v-on:mouseover="currentRecipe = recipe"
+      >
         <div class="card mb-4" v-bind:class="{ selected: recipe === currentRecipe }">
           <img class="m-auto card-img-top" v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
           <div class="card-body">
@@ -41,12 +58,6 @@ export default {
         </div>
       </div>
     </div>
-    <!-- <div v-for="recipe in recipes" v-bind:key="recipe.id">
-      <h2>Title: {{ recipe.title }}</h2>
-      <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
-      <p>Chef: {{ recipe.chef }}</p>
-      <a v-bind:href="`/recipes/${recipe.id}`">More info</a>
-    </div> -->
   </div>
 </template>
 
