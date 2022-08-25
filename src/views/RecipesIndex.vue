@@ -40,23 +40,28 @@ export default {
     <div class="row">
       <div class="row p-3">
         Search:
-        <input type="text" v-model="titleSearch" />
+        <input type="text" v-model="titleSearch" list="titles" />
+        <datalist id="titles">
+          <option v-for="recipe in filterRecipes()" v-bind:key="recipe.id">{{ recipe.title }}</option>
+        </datalist>
       </div>
-      <div
-        class="col-sm-4"
-        v-for="recipe in filterRecipes()"
-        v-bind:key="recipe.id"
-        v-on:mouseover="currentRecipe = recipe"
-      >
-        <div class="card mb-4" v-bind:class="{ selected: recipe === currentRecipe }">
-          <img class="m-auto card-img-top" v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
-          <div class="card-body">
-            <h5 class="card-title">{{ recipe.title }}</h5>
-            <p class="card-text">Chef: {{ recipe.chef }}</p>
-            <a v-bind:href="`/recipes/${recipe.id}`" class="btn btn-primary">More Info</a>
+      <TransitionGroup name="list">
+        <div
+          class="col-sm-4"
+          v-for="recipe in filterRecipes()"
+          v-bind:key="recipe.id"
+          v-on:mouseover="currentRecipe = recipe"
+        >
+          <div class="card mb-4" v-bind:class="{ selected: recipe === currentRecipe }">
+            <img class="m-auto card-img-top" v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
+            <div class="card-body">
+              <h5 class="card-title">{{ recipe.title }}</h5>
+              <p class="card-text">Chef: {{ recipe.chef }}</p>
+              <a v-bind:href="`/recipes/${recipe.id}`" class="btn btn-primary">More Info</a>
+            </div>
           </div>
         </div>
-      </div>
+      </TransitionGroup>
     </div>
   </div>
 </template>
@@ -70,5 +75,19 @@ export default {
   /* color: white; */
   background-color: #e6e6e6;
   transition: background-color 1s ease;
+}
+
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.list-leave-active {
+  position: absolute;
 }
 </style>
